@@ -16,8 +16,13 @@ export default function NavLinks() {
     return (
         <nav className="flex items-center gap-1 sm:gap-2" >
             {navItems.map((item) => {
-                // check if the current route matches the link destination
-                const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+                // exact match for Home and All Meetings
+                let isActive = pathname === item.href;
+
+                // if we are on a meeting detail page (like /meetings/1), highlight "Current Sunday"
+                if (item.href === '/meetings/current' && (pathname === '/meetings/current' || (pathname.startsWith('/meetings/') && pathname !== '/meetings'))) {
+                    isActive = true;
+                }
 
                 return (
                     <Link

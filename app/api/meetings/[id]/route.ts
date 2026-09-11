@@ -26,5 +26,5 @@ export async function GET(
     }
 
     // 6. Return Response.json(meeting)
-    return NextResponse.json(meeting);
+    return NextResponse.json(meeting, { status: 200 });
 }
