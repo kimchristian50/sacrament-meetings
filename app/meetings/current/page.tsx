@@ -1,6 +1,7 @@
 // app/meetings/current/page.tsx
 import { redirect, notFound } from 'next/navigation';
-import type { SacramentMeeting } from '@/lib/types';
+import { getMeetings } from '@/lib/meetings-db';
+// import type { SacramentMeeting } from '@/lib/types';
 
 // force Next.js to run this script live on the server every time someone visits the page, so "next Sunday" is current
 export const dynamic = 'force-dynamic';
@@ -19,33 +20,16 @@ function getMostRecentSunday(): string {
     return formatDate(sunday);
 }
 
-// fetch data 
-async function getMeetingByDate(dateStr: string): Promise<SacramentMeeting | null> {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/meetings?date=${dateStr}`, { cache: 'no-store' });
-
-    if (!res.ok) {
-        return null;
-    }
-
-    const meetings: SacramentMeeting[] = await res.json();
-    return meetings.length > 0 ? meetings[0] : null;
-}
-
 export default async function CurrentMeetingPage() {
     const sundayDate = getMostRecentSunday();
-    let meeting = await getMeetingByDate(sundayDate);
+    const allMeetings = getMeetings();
+
+    // find meeting by date directly from array
+    let meeting = allMeetings.find((m) => m.date === sundayDate);
 
     // Fallback: If no meeting exists for the calculated Sunday, fetch all meetings and pick the first available
-    if (!meeting) {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-        const res = await fetch(`${baseUrl}/api/meetings`, { cache: 'no-store' });
-        if (res.ok) {
-            const allMeetings: SacramentMeeting[] = await res.json();
-            if (allMeetings.length > 0) {
-                meeting = allMeetings[0];
-            }
-        }
+    if (!meeting && allMeetings.length > 0) {
+        meeting = allMeetings[0];
     }
 
     if (!meeting) {

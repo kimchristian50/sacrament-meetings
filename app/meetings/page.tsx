@@ -1,24 +1,25 @@
 // app/meetings/page.tsx
 import type { SacramentMeeting } from '@/lib/types';
 import MeetingCard from '../components/MeetingCard';
+import { getMeetings } from '../../lib/meetings-db'; 
 
 // Opt out of static caching so fresh data is always cached
 export const dynamic = 'force-dynamic';
 
-async function getMeetings(): Promise<SacramentMeeting[]> {
-    // use relative URL on server via process.env or absolute URL
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    // fetch the data
-    const res = await fetch(`${baseUrl}/api/meetings`, { cache: 'no-store' });
+// async function getMeetings(): Promise<SacramentMeeting[]> {
+//     // use relative URL on server via process.env or absolute URL
+//     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+//     // fetch the data
+//     const res = await fetch(`${baseUrl}/api/meetings`, { cache: 'no-store' });
 
-    if (!res.ok) {
-        throw new Error('Failed to fetch meetings');
-    }
-    return res.json();
-}
+//     if (!res.ok) {
+//         throw new Error('Failed to fetch meetings');
+//     }
+//     return res.json();
+// }
 
 export default async function MeetingsPage() {
-    const meetings = await getMeetings();
+    const meetings: SacramentMeeting[] = getMeetings();
 
     return (
         <div className="space-y-6">
