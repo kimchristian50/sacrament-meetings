@@ -1,7 +1,7 @@
 //app/meetings/[id]/page.tsx
 import { notFound } from 'next/navigation';
 // import type { SacramentMeeting } from '@/lib/types';
-import MeetingDetail from '../../components/MeetingDetail';
+import MeetingDetail from '../../../components/MeetingDetail';
 import { getMeetingById } from '@/lib/meetings-db';
 
 export const dynamic = 'force-dynamic'; // force this to be run every time the page is viewed
@@ -22,7 +22,7 @@ export default async function MeetingDetailPage({ params }: PageProps) {
     }
 
     // call DB function
-    const meeting = getMeetingById(id);
+    const meeting = await getMeetingById(id);
 
     if (!meeting) {
         notFound();

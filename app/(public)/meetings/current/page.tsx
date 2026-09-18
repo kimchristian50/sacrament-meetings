@@ -22,7 +22,7 @@ function getMostRecentSunday(): string {
 
 export default async function CurrentMeetingPage() {
     const sundayDate = getMostRecentSunday();
-    const allMeetings = getMeetings();
+    const allMeetings = await getMeetings();
 
     // find meeting by date directly from array
     let meeting = allMeetings.find((m) => m.date === sundayDate);

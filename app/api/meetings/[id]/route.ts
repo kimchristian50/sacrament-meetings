@@ -18,7 +18,7 @@ export async function GET(
     }
 
     // 4. Get meeting with getMeetingById(id)
-    const meeting = getMeetingById(id);
+    const meeting = await getMeetingById(id);
 
     // 5. If !meeting -> return Response.json({ error: 'Not Found' }, { status: 404 })
     if (!meeting) {
