@@ -75,7 +75,7 @@ export async function getMeetingById(
     return (rows[0] as unknown as SacramentMeeting) ?? null;
 }
 
-// Mutation stubs — will be wired to the database in Week 04
+// Add a new meeting to the database
 export async function addMeeting(
     data: Omit<SacramentMeeting, 'id'>
 ): Promise<SacramentMeeting> {
@@ -109,6 +109,7 @@ export async function addMeeting(
     return rows[0] as unknown as SacramentMeeting;
 }
 
+// update a meeting in the database
 export async function updateMeeting(
     id: number,
     updates: Partial<SacramentMeeting>
@@ -133,6 +134,7 @@ export async function updateMeeting(
     return (rows[0] as unknown as SacramentMeeting) ?? null;
 }
 
+// delete a meeting from the database
 export async function deleteMeeting(id: number): Promise<boolean> {
     const result = await sql`
         DELETE FROM meetings WHERE id = ${id}

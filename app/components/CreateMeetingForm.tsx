@@ -10,7 +10,7 @@ export default function CreateMeetingForm() {
 
     return (
         <form action={formAction} className="space-y-6 bg-white rounded-lg border border-slate-200 p-6 shadow-sm">
-{/* Date */}
+            {/* Date */}
             <div>
                 <label htmlFor="date" className="block text-sm font-medium text-slate-700 mb-1">
                     Meeting Date
@@ -126,6 +126,208 @@ export default function CreateMeetingForm() {
                         <p key={error} className="mt-1 text-sm text-red-600">{error}</p>
                     ))}
                 </div>
+            </div>
+            {/* Opening Hymn */}
+            <fieldset className="border border-slate-200 rounded-md p-4">
+                <legend className="text-sm font-medium text-slate-700 px-1">Opening Hymn</legend>
+                <div className="grid grid-cols-3 gap-3 mt-2">
+                    <div>
+                        <label htmlFor="openingHymnNumber" className="block text-sm font-medium text-slate-700 mb-1">
+                            Number
+                        </label>
+                        <input
+                            id="openingHymnNumber"
+                            name="openingHymnNumber"
+                            type="number"
+                            min="1"
+                            className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-describedby="openingHymnNumber-error"
+                        />
+                        <div id="openingHymnNumber-error" aria-live="polite" aria-atomic="true">
+                            {state.errors?.openingHymnNumber?.map((error) => (
+                                <p key={error} className="mt-1 text-sm text-red-600">{error}</p>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="col-span-2">
+                        <label htmlFor="openingHymnTitle" className="block text-sm font-medium text-slate-700 mb-1">
+                            Title
+                        </label>
+                        <input
+                            id="openingHymnTitle"
+                            name="openingHymnTitle"
+                            type="text"
+                            placeholder="Hymn title"
+                            className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-describedby="openingHymnTitle-error"
+                        />
+                        <div id="openingHymnTitle-error" aria-live="polite" aria-atomic="true">
+                            {state.errors?.openingHymnTitle?.map((error) => (
+                                <p key={error} className="mt-1 text-sm text-red-600">{error}</p>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            {/* Sacrament Hymn */}
+            <fieldset className="border border-slate-200 rounded-md p-4">
+                <legend className="text-sm font-medium text-slate-700 px-1">Sacrament Hymn</legend>
+                <div className="grid grid-cols-3 gap-3 mt-2">
+                    <div>
+                        <label htmlFor="sacramentHymnNumber" className="block text-sm font-medium text-slate-700 mb-1">
+                            Number
+                        </label>
+                        <input
+                            id="sacramentHymnNumber"
+                            name="sacramentHymnNumber"
+                            type="number"
+                            min="1"
+                            className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-describedby="sacramentHymnNumber-error"
+                        />
+                        <div id="sacramentHymnNumber-error" aria-live="polite" aria-atomic="true">
+                            {state.errors?.sacramentHymnNumber?.map((error) => (
+                                <p key={error} className="mt-1 text-sm text-red-600">{error}</p>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="col-span-2">
+                        <label htmlFor="sacramentHymnTitle" className="block text-sm font-medium text-slate-700 mb-1">
+                            Title
+                        </label>
+                        <input
+                            id="sacramentHymnTitle"
+                            name="sacramentHymnTitle"
+                            type="text"
+                            placeholder="Hymn title"
+                            className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-describedby="sacramentHymnTitle-error"
+                        />
+                        <div id="sacramentHymnTitle-error" aria-live="polite" aria-atomic="true">
+                            {state.errors?.sacramentHymnTitle?.map((error) => (
+                                <p key={error} className="mt-1 text-sm text-red-600">{error}</p>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            {/* Closing Hymn */}
+            <fieldset className="border border-slate-200 rounded-md p-4">
+                <legend className="text-sm font-medium text-slate-700 px-1">Closing Hymn</legend>
+                <div className="grid grid-cols-3 gap-3 mt-2">
+                    <div>
+                        <label htmlFor="closingHymnNumber" className="block text-sm font-medium text-slate-700 mb-1">
+                            Number
+                        </label>
+                        <input
+                            id="closingHymnNumber"
+                            name="closingHymnNumber"
+                            type="number"
+                            min="1"
+                            className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-describedby="closingHymnNumber-error"
+                        />
+                        <div id="closingHymnNumber-error" aria-live="polite" aria-atomic="true">
+                            {state.errors?.closingHymnNumber?.map((error) => (
+                                <p key={error} className="mt-1 text-sm text-red-600">{error}</p>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="col-span-2">
+                        <label htmlFor="closingHymnTitle" className="block text-sm font-medium text-slate-700 mb-1">
+                            Title
+                        </label>
+                        <input
+                            id="closingHymnTitle"
+                            name="closingHymnTitle"
+                            type="text"
+                            placeholder="Hymn title"
+                            className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-describedby="closingHymnTitle-error"
+                        />
+                        <div id="closingHymnTitle-error" aria-live="polite" aria-atomic="true">
+                            {state.errors?.closingHymnTitle?.map((error) => (
+                                <p key={error} className="mt-1 text-sm text-red-600">{error}</p>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            {/* Speakers & Musical Numbers */}
+            <fieldset className="border border-slate-200 rounded-md p-4">
+                <legend className="text-sm font-medium text-slate-700 px-1">
+                    Speakers & Musical Numbers (leave blank to skip)
+                </legend>
+                <div className="space-y-4 mt-2">
+                    {[0, 1, 2, 3].map((i) => (
+                        <div key={i} className="grid grid-cols-12 gap-2 items-start">
+                            <div className="col-span-4">
+                                <label
+                                    htmlFor={`speaker${i}Name`}
+                                    className="block text-xs font-medium text-slate-600 mb-1"
+                                >
+                                    {i === 2 ? 'Musical Number' : `Speaker ${i + 1}`} Name
+                                </label>
+                                <input
+                                    id={`speaker${i}Name`}
+                                    name={`speaker${i}Name`}
+                                    type="text"
+                                    placeholder="Name"
+                                    className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <div className="col-span-5">
+                                <label
+                                    htmlFor={`speaker${i}Topic`}
+                                    className="block text-xs font-medium text-slate-600 mb-1"
+                                >
+                                    Topic / Piece
+                                </label>
+                                <input
+                                    id={`speaker${i}Topic`}
+                                    name={`speaker${i}Topic`}
+                                    type="text"
+                                    placeholder="Topic or musical piece"
+                                    className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <div className="col-span-3">
+                                <label
+                                    htmlFor={`speaker${i}Type`}
+                                    className="block text-xs font-medium text-slate-600 mb-1"
+                                >
+                                    Type
+                                </label>
+                                <select
+                                    id={`speaker${i}Type`}
+                                    name={`speaker${i}Type`}
+                                    defaultValue={i === 2 ? 'musical-number' : 'speaker'}
+                                    className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    <option value="speaker">Speaker</option>
+                                    <option value="musical-number">Musical Number</option>
+                                </select>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </fieldset>
+
+            {/* Stake Business */}
+            <div className="flex items-center gap-3">
+                <input
+                    id="stakeBusiness"
+                    name="stakeBusiness"
+                    type="checkbox"
+                    value="true"
+                    className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                />
+                <label htmlFor="stakeBusiness" className="text-sm font-medium text-slate-700">
+                    Stake Business
+                </label>
             </div>
             {/* General error message */}
             {state.message && (
