@@ -1,6 +1,5 @@
 //app/meetings/[id]/page.tsx
 import { notFound } from 'next/navigation';
-// import type { SacramentMeeting } from '@/lib/types';
 import MeetingDetail from '../../../components/MeetingDetail';
 import { getMeetingById } from '@/lib/meetings-db';
 

@@ -1,6 +1,7 @@
 // components/MeetingCard.tsx
 import Link from 'next/link';
 import { SacramentMeeting } from '@/lib/types';
+import DeleteMeetingButton from './DeleteMeetingButton';
 
 interface MeetingCardProps {
     meeting: SacramentMeeting;
@@ -34,6 +35,10 @@ export default function MeetingCard({ meeting }: MeetingCardProps) {
             >
                 View Program &rarr;
             </Link>
+            {/* Delete Form */}
+            <div className="flex items-center justify-between mt-2">
+                <DeleteMeetingButton id={meeting.id} />
+            </div>
         </div>
     );
 }

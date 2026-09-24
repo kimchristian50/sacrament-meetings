@@ -3,6 +3,7 @@ import MeetingCard from '../../components/MeetingCard';
 import { getMeetings, getMeetingsTotalPages } from '../../../lib/meetings-db';
 import { Pagination } from '../../components/Pagination';
 import { MeetingSearch } from '../../components/MeetingSearch';
+import Link from 'next/link';
 
 
 // Opt out of static caching so fresh data is always cached
@@ -24,9 +25,13 @@ export default async function MeetingsPage(props: {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-slate-900">Scheduled Meetings</h1>
-                {/* <span className="text-sm text-slate-500">{meetings.length} Total Meetings</span> */}
-
+                <span className="text-xl text-slate-900">
+                    <Link href="/meetings/new" className="...">
+                        + New Meeting
+                    </Link>
+                </span>
             </div>
+
             <div className="max-w-md mx-auto mb-8">
                 <MeetingSearch />
             </div>

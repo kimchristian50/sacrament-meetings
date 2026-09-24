@@ -1,7 +1,6 @@
 // app/meetings/current/page.tsx
 import { redirect, notFound } from 'next/navigation';
-import { getMeetings } from '@/lib/meetings-db';
-// import type { SacramentMeeting } from '@/lib/types';
+import { getMeetings, getAllMeetingDates } from '@/lib/meetings-db';
 
 // force Next.js to run this script live on the server every time someone visits the page, so "next Sunday" is current
 export const dynamic = 'force-dynamic';
@@ -22,14 +21,18 @@ function getMostRecentSunday(): string {
 
 export default async function CurrentMeetingPage() {
     const sundayDate = getMostRecentSunday();
-    const allMeetings = await getMeetings();
+    const allMeetings = await getAllMeetingDates();
 
     // find meeting by date directly from array
     let meeting = allMeetings.find((m) => m.date === sundayDate);
 
-    // Fallback: If no meeting exists for the calculated Sunday, fetch all meetings and pick the first available
+    // Fallback: find the closest meeting to today's Sunday
     if (!meeting && allMeetings.length > 0) {
-        meeting = allMeetings[0];
+        const sorted = [...allMeetings].sort((a, b) =>
+            Math.abs(new Date(a.date).getTime() - new Date(sundayDate).getTime()) -
+            Math.abs(new Date(b.date).getTime() - new Date(sundayDate).getTime())
+        );
+        meeting = sorted[0];
     }
 
     if (!meeting) {
