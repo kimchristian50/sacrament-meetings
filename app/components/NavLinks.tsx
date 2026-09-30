@@ -8,6 +8,7 @@ const navItems = [
     { name: 'Home', href: '/' },
     { name: 'All Meetings', href: '/meetings' },
     { name: 'Current Sunday', href: '/meetings/current' },
+    // { name: 'Login', href: '/login' },
 ];
 
 export default function NavLinks() {

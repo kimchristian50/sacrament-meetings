@@ -5,9 +5,10 @@ import DeleteMeetingButton from './DeleteMeetingButton';
 
 interface MeetingCardProps {
     meeting: SacramentMeeting;
+    isOwner?: boolean;
 }
 
-export default function MeetingCard({ meeting }: MeetingCardProps) {
+export default function MeetingCard({ meeting, isOwner = false }: MeetingCardProps) {
     return (
         <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
             {/* Top Header: Date and Meeting Type Badge */}
@@ -37,7 +38,7 @@ export default function MeetingCard({ meeting }: MeetingCardProps) {
             </Link>
             {/* Delete Form */}
             <div className="flex items-center justify-between mt-2">
-                <DeleteMeetingButton id={meeting.id} />
+                {isOwner && <DeleteMeetingButton id={meeting.id} />}
             </div>
         </div>
     );

@@ -1,6 +1,12 @@
 import { neon } from '@neondatabase/serverless';
 import type { SacramentMeeting } from './types';
 
+export interface User {
+    id: string;
+    email: string;
+    passwordHash: string;
+}
+
 const sql = neon(process.env.DATABASE_URL!);
 
 const ITEMS_PER_PAGE = 5;
@@ -149,4 +155,34 @@ export async function getAllMeetingDates(): Promise<SacramentMeeting[]> {
     ORDER BY date ASC
   `;
     return rows as unknown as SacramentMeeting[];   
+}
+
+// export async function getUserByEmail(email: string): Promise<User | null> {
+//     // Single-owner portfolio — owner credentials stored in environment variables, not in database
+//     if (email !== process.env.OWNER_EMAIL) return null;
+
+//     return {
+//         id: '1',
+//         email: process.env.OWNER_EMAIL!,
+//         passwordHash: process.env.OWNER_PASSWORD_HASH!,
+//     };
+// }
+
+export async function getUserByEmail(email: string): Promise<User | null> {
+    if (email !== process.env.OWNER_EMAIL) return null;
+
+    // Prepend the bcrypt prefix that gets stripped by the env parser
+    const storedHash = process.env.OWNER_PASSWORD_HASH!;
+    const fullHash = storedHash.startsWith('$2b$')
+        ? storedHash
+        : '$2b$12$N09rKJQerU' + storedHash;
+
+    console.log('Full hash reconstructed:', fullHash);
+    console.log('Hash length:', fullHash.length);
+
+    return {
+        id: '1',
+        email: process.env.OWNER_EMAIL!,
+        passwordHash: fullHash,
+    };
 }

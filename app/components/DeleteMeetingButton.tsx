@@ -16,4 +16,4 @@ export default function DeleteMeetingButton({ id }: { id: number }) {
             </button>
         </form>
     );
-}
+} 

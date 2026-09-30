@@ -4,10 +4,16 @@ import { getMeetings, getMeetingsTotalPages } from '../../../lib/meetings-db';
 import { Pagination } from '../../components/Pagination';
 import { MeetingSearch } from '../../components/MeetingSearch';
 import Link from 'next/link';
-
+import { auth } from '@/auth';
+import type { Metadata } from 'next';
 
 // Opt out of static caching so fresh data is always cached
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+    title: 'All Meetings',
+    description: 'Browse upcoming and past sacrament meeting programs for Taylor Ranch Ward.',
+};
 
 export default async function MeetingsPage(props: {
     searchParams?: Promise<{ query?: string; page?: string }>;
@@ -15,6 +21,9 @@ export default async function MeetingsPage(props: {
     const searchParams = await props.searchParams;
     const query = searchParams?.query ?? '';
     const currentPage = Number(searchParams?.page) || 1;
+
+    const session = await auth();
+    const isOwner = !!session?.user;
 
     const [meetings, totalPages] = await Promise.all([
         getMeetings(query, currentPage),
@@ -41,7 +50,7 @@ export default async function MeetingsPage(props: {
             ) : (
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {meetings.map((meeting) => (
-                        <MeetingCard key={meeting.id} meeting={meeting} />
+                        <MeetingCard key={meeting.id} meeting={meeting} isOwner={isOwner} />
                     ))}
                 </div>
             )}

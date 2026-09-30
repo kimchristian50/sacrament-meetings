@@ -11,8 +11,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-    title: 'Sacrament Meeting Planner',
+    title: {
+        default: 'Sacrament Meeting Planner',
+        template: '%s | Taylor Ranch Ward', // this means that pages will display as "All Meetings | Taylor Ranch Ward" in the browser tab
+    },
     description: 'Plan, manage, and view ward sacrament meeting programs.',
+    metadataBase: new URL('https://sacrament-meetings-pi-ten.vercel.app/'), 
 };
 
 export default function RootLayout({
