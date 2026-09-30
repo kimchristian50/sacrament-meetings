@@ -68,7 +68,17 @@ export async function createMeeting(
     prevState: State,
     formData: FormData
 ): Promise<State> {
-    await requireOwnerSession();
+    try {
+        await requireOwnerSession();
+        console.log('Session verified, attempting database write');
+        console.log('Form data entries:');
+        for (const [key, value] of formData.entries()) {
+            console.log(`  ${key}: ${value}`);
+        }
+    } catch (error) {
+        console.log('Session error:', error);
+        return { message: 'Not authenticated' };
+    }
     // Validate the form fields
     const validatedFields = MeetingFormSchema.safeParse({
         date: formData.get('date'),
@@ -137,6 +147,10 @@ export async function createMeeting(
             },
         });
     } catch (error) {
+        // return { message: 'Database Error: Failed to create meeting.' };
+        if (error instanceof Error && error.message.includes('meetings_date_key')) {
+            return { message: 'A meeting already exists for that date. Please choose a different date.' };
+        }
         return { message: 'Database Error: Failed to create meeting.' };
     }
 

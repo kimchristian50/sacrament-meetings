@@ -1,5 +1,5 @@
 // app/(admin)/meetings/new/page.tsx
-import CreateMeetingForm from '../../../components/CreateMeetingForm';
+import CreateMeetingForm from '@/app/components/CreateMeetingForm';
 
 export default function NewMeetingPage() {
     return (
